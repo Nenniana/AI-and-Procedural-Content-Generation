@@ -22,6 +22,8 @@ public class Test : MonoBehaviour
     [SerializeField]
     bool showDebug = true;
     [SerializeField] 
+    AIType aIType;
+    [SerializeField] 
     int aiToGenerate = 10;
 
     [SerializeField]
@@ -84,28 +86,17 @@ public class Test : MonoBehaviour
         }
         Instantiate(enemyPrefab, availablePositions.Dequeue().Position, Quaternion.identity);
 
-
-        /*for (int i = 0; i < aiToGenerate; i++)
-        {
-            //Vector3 position = Random.insideUnitCircle * new Vector2(width * (cellSizeX / 2), height * (cellSizeX / 2));
-            Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-            Instantiate(btAIPrefab, availablePositions.Dequeue().Position, Quaternion.identity).GetComponent<GuardBehaviourTree>().Initialize(gridCore, color);
-        }*/
-
-        /* for (int i = 0; i < aiToGenerate; i++)
-        {
-            //Vector3 position = Random.insideUnitCircle * new Vector2(width * (cellSizeX / 2), height * (cellSizeX / 2));
-            Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-            Instantiate(goapAIPrefab, availablePositions.Dequeue().Position, Quaternion.identity).GetComponent<GoalPlanner>().Initialize(gridCore, color);
-        } */
-
         for (int i = 0; i < aiToGenerate; i++)
         {
-           //Vector3 position = Random.insideUnitCircle * new Vector2(width * (cellSizeX / 2), height * (cellSizeX / 2));
-           Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-           Instantiate(aiPrefab, availablePositions.Dequeue().Position, Quaternion.identity).GetComponent<AIController>().Initialize(gridCore, color);
+            //Vector3 position = Random.insideUnitCircle * new Vector2(width * (cellSizeX / 2), height * (cellSizeX / 2));
+            Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+            if (aIType == AIType.BehaviourTree)
+                Instantiate(btAIPrefab, availablePositions.Dequeue().Position, Quaternion.identity).GetComponent<GuardBehaviourTree>().Initialize(gridCore, color);
+            else if (aIType == AIType.GoalOrientedActionPlanning)
+                Instantiate(goapAIPrefab, availablePositions.Dequeue().Position, Quaternion.identity).GetComponent<GoalPlanner>().Initialize(gridCore, color);
+            else
+                Instantiate(aiPrefab, availablePositions.Dequeue().Position, Quaternion.identity).GetComponent<AIController>().Initialize(gridCore, color);
         }
-
     }
 
     private void Update()
