@@ -18,7 +18,9 @@ public class TestAIPCG : MonoBehaviour
     [SerializeField]
     float cellSizeY = 10;
     [SerializeField]
-    int fillPercent = 45;
+    int cellularFillPercent = 45;
+    [SerializeField]
+    string cellularSeed = "Seed";
     [SerializeField]
     bool showDebug = true;
     [SerializeField] 
@@ -78,7 +80,7 @@ public class TestAIPCG : MonoBehaviour
     private void CreateMapByPCGMethod()
     {
         if (pCGType == PCGType.CellularAutomate)
-            CellularAutomateCreation.CreateMap(gridCore, fillPercent, 5, 4, NeighbourhoodType.Moore, "Toto");
+            CellularAutomateCreation.CreateMap(gridCore, cellularFillPercent, 5, 4, NeighbourhoodType.Moore, cellularSeed);
         else
             BinaryPartitionCreation.CreateMap(gridCore, 5, 5, 1, true);
     }
