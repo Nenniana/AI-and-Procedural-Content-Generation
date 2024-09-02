@@ -1,5 +1,9 @@
 # AI and Procedural Content Generation
 
+<div align="center">
+    <img src="./READMEAssets/AIPCGDemonstration_GOAP.gif" alt="Goal Oriented Action Planning and Binary Partitioning Demonstration">
+</div>
+
 This project was developed as part of revisioning for the AI Programming exam, with a focus on exploring various AI and procedural content generation techniques.
 
 ## Concept
