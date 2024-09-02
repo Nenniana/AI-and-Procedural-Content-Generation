@@ -34,6 +34,10 @@ The goal of this project was to deepen understanding by implementing and experim
 - **Cave Generation**: Starting with a random grid, this method evolves the layout using cellular automata rules to create natural cave-like structures.
 - **Rule Customization**: The evolution rules are customizable, allowing users to fine-tune the cave formation process by adjusting parameters like neighbor thresholds.
 
+<div align="center">
+    <img src="./READMEAssets/AIPCGDemonstration_BT.gif" alt="Behavior Tree and Cellular Automata Demonstration">
+</div>
+
 ## Potential Enhancements
 
 - **Behavior Tree Inspector Integration**: Adding the ability to customize and visualize Behavior Tree structures directly in the Unity Inspector could enhance usability and flexibility, allowing users to create and modify behaviors more intuitively.
