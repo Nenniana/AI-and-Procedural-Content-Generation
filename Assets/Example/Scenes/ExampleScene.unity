@@ -196,7 +196,9 @@ MonoBehaviour:
   cellSizeX: 1
   cellSizeY: 1
   fillPercent: 45
-  showDebug: 0
+  showDebug: 1
+  pCGType: 0
+  aIType: 10
   aiToGenerate: 5
   sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   nodeStartColor: {r: 1, g: 1, b: 1, a: 1}

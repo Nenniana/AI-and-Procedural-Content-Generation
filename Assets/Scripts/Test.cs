@@ -22,6 +22,8 @@ public class Test : MonoBehaviour
     [SerializeField]
     bool showDebug = true;
     [SerializeField] 
+    PCGType pCGType;
+    [SerializeField] 
     AIType aIType;
     [SerializeField] 
     int aiToGenerate = 10;
@@ -53,23 +55,15 @@ public class Test : MonoBehaviour
         gridCore = new GridCore<PNode>(width, height, cellSizeX, (GridCore<PNode> g, int x, int y, Vector3 position, float width, float height) => new PNode(g, x, y, position, width, height));
         gridCore.DebugText = showDebug;
 
-        //CellularAutomateCreation.CreateMap(gridCore, fillPercent, 5, 4, NeighbourhoodType.Moore, "Toto");
-        BinaryPartitionCreation.CreateMap(gridCore, 5, 5, 1, true);
+        if (pCGType == PCGType.CellularAutomate)
+            CellularAutomateCreation.CreateMap(gridCore, fillPercent, 5, 4, NeighbourhoodType.Moore, "Toto");
+        else
+            BinaryPartitionCreation.CreateMap(gridCore, 5, 5, 1, true);
 
         foreach (var node in gridCore.GridList)
         {
             node.SetWalkableBasedOnFill(sprite, nodeStartColor);
         }
-
-        //float spawnRadius = (width > height) ? height : width;
-
-        //ObjectSpawnerHelper objectSpawner = new ObjectSpawnerHelper();
-
-        //foreach (var item in objectSpawner.SpawnObjects(aiPrefab, aiToGenerate, Vector2.zero, new Vector2(width * (cellSizeX / 2), height * (cellSizeX / 2)), Quaternion.identity, SpawnContainerType.Cube))
-        //{
-        //    Color color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-        //    item.GetComponent<AIController>().Initialize(gridCore, color);
-        //}
 
         Queue<PNode> availablePositions = new Queue<PNode>(gridCore.GridList.Where(x => x.IsWalkable == true).OrderBy(x => Guid.NewGuid()));
 
