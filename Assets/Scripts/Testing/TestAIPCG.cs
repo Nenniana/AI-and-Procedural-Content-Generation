@@ -52,25 +52,49 @@ public class TestAIPCG : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gridCore = new GridCore<PNode>(width, height, cellSizeX, (GridCore<PNode> g, int x, int y, Vector3 position, float width, float height) => new PNode(g, x, y, position, width, height));
-        gridCore.DebugText = showDebug;
+        CreateGridCore();
+        CreateMapByPCGMethod();
+        SetWalkableNodes();
+        Queue<PNode> availablePositions = GetAvaliablePositions();
+        InstantiateEnemyAtAvaliablePosition(availablePositions);
+        InstantiateAIAtAvailablePositions(availablePositions);
+    }
 
-        if (pCGType == PCGType.CellularAutomate)
-            CellularAutomateCreation.CreateMap(gridCore, fillPercent, 5, 4, NeighbourhoodType.Moore, "Toto");
-        else
-            BinaryPartitionCreation.CreateMap(gridCore, 5, 5, 1, true);
-
+    private void SetWalkableNodes()
+    {
         foreach (var node in gridCore.GridList)
         {
             node.SetWalkableBasedOnFill(sprite, nodeStartColor);
         }
+    }
 
-        Queue<PNode> availablePositions = new Queue<PNode>(gridCore.GridList.Where(x => x.IsWalkable == true).OrderBy(x => Guid.NewGuid()));
+    private void CreateGridCore()
+    {
+        gridCore = new GridCore<PNode>(width, height, cellSizeX, (GridCore<PNode> g, int x, int y, Vector3 position, float width, float height) => new PNode(g, x, y, position, width, height));
+        gridCore.DebugText = showDebug;
+        
+    }
 
-        PNode floodPosition = availablePositions.Dequeue();
+    private void CreateMapByPCGMethod()
+    {
+        if (pCGType == PCGType.CellularAutomate)
+            CellularAutomateCreation.CreateMap(gridCore, fillPercent, 5, 4, NeighbourhoodType.Moore, "Toto");
+        else
+            BinaryPartitionCreation.CreateMap(gridCore, 5, 5, 1, true);
+    }
 
+    private Queue<PNode> GetAvaliablePositions()
+    {
+        return new Queue<PNode>(gridCore.GridList.Where(x => x.IsWalkable == true).OrderBy(x => Guid.NewGuid()));
+    }
+
+    private void InstantiateEnemyAtAvaliablePosition(Queue<PNode> availablePositions)
+    {
         Instantiate(enemyPrefab, availablePositions.Dequeue().Position, Quaternion.identity);
+    }
 
+    private void InstantiateAIAtAvailablePositions(Queue<PNode> availablePositions)
+    {
         for (int i = 0; i < aiToGenerate; i++)
         {
             //Vector3 position = Random.insideUnitCircle * new Vector2(width * (cellSizeX / 2), height * (cellSizeX / 2));
@@ -86,16 +110,17 @@ public class TestAIPCG : MonoBehaviour
 
     private void Update()
     {
+        InstantiateEnemyAtInterval();
+    }
 
+    private void InstantiateEnemyAtInterval()
+    {
         timer += Time.deltaTime;
 
         if (timer > (120 / aiToGenerate))
         {
             timer = 0;
-            Queue<PNode> availablePositions = new Queue<PNode>(gridCore.GridList.Where(x => x.IsWalkable == true).OrderBy(x => Guid.NewGuid()));
-            Instantiate(enemyPrefab, availablePositions.Dequeue().Position, Quaternion.identity);
+            InstantiateEnemyAtAvaliablePosition(GetAvaliablePositions());
         }
     }
-
-
 }
