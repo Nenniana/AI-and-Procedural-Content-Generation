@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GridSystem;
 
-public class Testing : MonoBehaviour
+public class TestPathfinding : MonoBehaviour
 {
     [SerializeField]
     int height = 5;

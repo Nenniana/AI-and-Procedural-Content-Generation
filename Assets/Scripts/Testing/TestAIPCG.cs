@@ -7,7 +7,7 @@ using System.Linq;
 using System;
 using Random = UnityEngine.Random;
 
-public class Test : MonoBehaviour
+public class TestAIPCG : MonoBehaviour
 {
     [SerializeField]
     int height = 5;
@@ -46,7 +46,7 @@ public class Test : MonoBehaviour
     GameObject enemyPrefab;
 
     private GridCore<PNode> gridCore;
-    private FloodMap map;
+
     private float timer = 0;
 
     // Start is called before the first frame update
@@ -67,17 +67,8 @@ public class Test : MonoBehaviour
 
         Queue<PNode> availablePositions = new Queue<PNode>(gridCore.GridList.Where(x => x.IsWalkable == true).OrderBy(x => Guid.NewGuid()));
 
-        map = new FloodMap();
-
         PNode floodPosition = availablePositions.Dequeue();
 
-        map.InitializeDjikstraMap(gridCore, floodPosition.x, floodPosition.y, 0);
-
-        foreach (var item in map.Map)
-        {
-            if (item != null)
-                gridCore.GetGridObject(item.x, item.y).Denotion = item.Denotion;
-        }
         Instantiate(enemyPrefab, availablePositions.Dequeue().Position, Quaternion.identity);
 
         for (int i = 0; i < aiToGenerate; i++)
@@ -95,21 +86,6 @@ public class Test : MonoBehaviour
 
     private void Update()
     {
-        /*if (Input.GetMouseButtonDown(1))
-        {
-            MapCoord[,] coords = map.GetMap(map.Map, (x, y) => map.Map[x, y].Denotion == 'C', (x, y) => map.Map[x, y].Denotion == '#', x => 1);
-
-            //Vector3 pos = MouseWorldPosition.GetMouseWorldPosition();
-            //gridCore.GetXY(pos, out int x, out int y);
-            //map.UpdateMap(x, y, 0);
-            //map.Test();
-
-            foreach (var item in coords)
-            {
-                if (item != null)
-                    gridCore.GetGridObject(item.x, item.y).Denotion = item.Denotion;
-            }
-        }*/
 
         timer += Time.deltaTime;
 

@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 208567175}
   - component: {fileID: 208567174}
   - component: {fileID: 208567176}
+  - component: {fileID: 208567177}
   m_Layer: 0
   m_Name: Testing
   m_TagString: Untagged
@@ -153,8 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d7f8675ca9f59409ccde8031443505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  height: 10
-  width: 10
+  height: 20
+  width: 40
   cellSizeX: 1
   cellSizeY: 1
   originPosition: {x: 0, y: 0, z: 0}
@@ -186,7 +187,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 208567173}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ca50fea7ba40c44d8efbe540057a8e9, type: 3}
   m_Name: 
@@ -206,6 +207,22 @@ MonoBehaviour:
   btAIPrefab: {fileID: 477124546424254386, guid: b5b22c6ceb0ded64586f986126a61df4, type: 3}
   goapAIPrefab: {fileID: 477124546424254386, guid: 9c90597106e82ae47be9c64a80c0c4f9, type: 3}
   enemyPrefab: {fileID: 477124546424254386, guid: 2b22d0b1b141e5e4a8a6bf3a75d07499, type: 3}
+--- !u!114 &208567177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 208567173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0bcc76c38b81864fa7923f56476f266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  height: 20
+  width: 40
+  cellSizeX: 1
+  cellSizeY: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
